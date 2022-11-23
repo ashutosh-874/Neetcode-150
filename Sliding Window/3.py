@@ -5,24 +5,30 @@ def characterReplacement(s, k):
 
 
     dct = {}
-
-
-    l = 0
-
     res = 0
-    for idx in range(len(s)):
 
-        dct[s[idx]] = 1 + dct.get(s[idx], 0)
+    l, r = 0, 0
 
-        while len(dct) > 2:
+    while r < len(s):
+
+        dct[s[r]] = 1 + dct.get(s[r], 0)
+
+        most_freq_val = max(dct.values())
+        while (r-l+1) - most_freq_val > k:
             dct[s[l]] -= 1
             if dct[s[l]] == 0: del dct[s[l]]
+            # most_freq_val = max(dct.values())
             l += 1
 
-        if len(dct) < 2:
-            res = max(res, idx - l + 1)
-            
-        k in dct.values():
+        res = max(res, r-l+1)
+        print(res)        
+        r += 1
+
+    return res
+
+
+print(characterReplacement("ABABBA", 2))
+
 
 
 
